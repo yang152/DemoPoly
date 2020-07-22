@@ -74,6 +74,7 @@
     ad.delegate = self;
     ad.viewController = self;
     [ad loadAdData];
+    
     self.ad = ad;
 }
 

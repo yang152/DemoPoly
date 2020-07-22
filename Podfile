@@ -8,7 +8,7 @@ platform :ios, '9.0'
 target 'Demo3000' do
 
 #  pod 'VLionAdSDKPoly'
-#  
+  
 #  pod 'VLionAdSDKPoly/VLionADSDKGDTAdapter'
 #  pod 'VLionAdSDKPoly/VLionADSDKBDAdapter'
 #  pod 'VLionAdSDKPoly/VLionADSDKIMBAdapter'
@@ -16,7 +16,7 @@ target 'Demo3000' do
 #  pod 'VLionAdSDKPoly/VLionADSDKSGBAdapter'
 #  pod 'VLionAdSDKPoly/VLionADSDKBUAdapter'
 #  pod 'VLionAdSDKPoly/VLionADSDKMGTAdapter'
-#
+
 #  pod 'VLionAdSDKPoly/RSGameVlionAd'
 #  pod 'VLionAdSDKPoly/VLionNewsSDK'
   

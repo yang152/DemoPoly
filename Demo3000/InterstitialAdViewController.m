@@ -40,9 +40,7 @@
 }
 
 - (void)showAd {
-    if (self.interstitialAd.isReady) {
-        [self.interstitialAd presentFromRootViewController:self];
-    }
+    [self.interstitialAd presentFromRootViewController:self];
 }
 
 - (void)interstitialAdDidLoad:(VLNInterstitialAd *)interstitialAd {

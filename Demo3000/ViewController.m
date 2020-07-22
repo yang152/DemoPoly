@@ -15,6 +15,7 @@
 #import <RSGameVlionAd/RSGameVlionAd.h>
 #import <BUAdSDK/BUAdSDK.h>
 #import "NewsViewController.h"
+#import "SplashViewController.h"
 
 typedef NS_ENUM(NSInteger, ADType) {
     ADTypeBanner = 0,
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSInteger, ADType) {
     ADTypeNative = 3,
     ADTypeExcitation= 4,
     ADTypeSplash=5,
+    ADTypeSplashZiDingYi = 100,
     ADTypeDrawNative = 6,
     ADTypeDrawSmallGame = 7,
     ADTypeDrawNews = 8
@@ -33,6 +35,9 @@ typedef NS_ENUM(NSInteger, ADType) {
 @property (nonatomic, strong) UIView *interstitialView;
 @property (nonatomic, strong) VLNSplashAd *splashAd;
 
+@property (nonatomic, strong) SplashViewController *splashVC;
+
+@property(nonatomic,assign) BOOL statusHiden;
 
 @end
 
@@ -66,10 +71,15 @@ typedef NS_ENUM(NSInteger, ADType) {
                             @"ADType": @(ADTypeExcitation)
                             },
                         @{
-                            @"title": @"开屏广告",
+                            @"title": @"直接加载开屏广告",
                             @"tagId": @"23799",
                             @"ADType": @(ADTypeSplash)
                             },
+                        @{
+                            @"title": @"自定义开屏广告",
+                            @"tagId": @"23799",
+                            @"ADType": @(ADTypeSplashZiDingYi)
+                        },
                         @{
                             @"title": @"draw视频流",
                             @"tagId": @"23799",
@@ -77,7 +87,7 @@ typedef NS_ENUM(NSInteger, ADType) {
                             },
                         @{
                             @"title": @"小游戏",
-                            @"tagId": @"105",
+                            @"tagId": @"45",
                             @"ADType": @(ADTypeDrawSmallGame)
                         },
                         @{
@@ -133,7 +143,11 @@ typedef NS_ENUM(NSInteger, ADType) {
             [self loadExcitationAd:tagId];
             break;
         case ADTypeSplash:
-            [self loadSplashAd:tagId];
+        {
+            self.splashAd = [[VLNSplashAd alloc] initWithTagId:tagId];
+            self.splashAd.backgroundImage = [UIImage imageNamed:@"timg.jpeg"];
+            [self.splashAd loadAdAndShowInWindow:self.view.window];
+        }
             break;
         case ADTypeDrawNative:
         {
@@ -154,6 +168,12 @@ typedef NS_ENUM(NSInteger, ADType) {
                 [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
+            
+        case ADTypeSplashZiDingYi:
+        {
+            [self loadSplashAd:tagId];
+            break;
+        }
         default:
             break;
     }
@@ -183,9 +203,35 @@ typedef NS_ENUM(NSInteger, ADType) {
 }
 
 - (void)loadSplashAd:(NSString *)tagId {
-    self.splashAd = [[VLNSplashAd alloc] initWithTagId:tagId];
-    self.splashAd.placeholderImage = [UIImage imageNamed:@"placeholderImage"];
-    [self.splashAd loadAdAndShowInWindow:self.view.window];
+    
+    if (!self.splashVC) {
+        self.splashVC = [SplashViewController new];
+        [self addChildViewController:self.splashVC];
+        [self.view addSubview:self.splashVC.view];
+        self.splashVC.view.frame = UIScreen.mainScreen.bounds;
+        self.statusHiden = YES;
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        __weak ViewController *wVC = self;
+        self.splashVC.willCloseB = ^(SplashViewController * _Nonnull vc) {
+            [vc removeFromParentViewController];
+            [vc.view removeFromSuperview];
+        };
+        self.splashVC.didCloseB = ^(SplashViewController * _Nonnull vc) {
+            [wVC invate];
+        };
+    }
+    
+}
+
+- (void)invate {
+    _splashVC = nil;
+    self.statusHiden = NO;
+    // 刷新状态栏
+    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+}
+
+- (BOOL)prefersStatusBarHidden{
+    return self.statusHiden;
 }
 
 @end

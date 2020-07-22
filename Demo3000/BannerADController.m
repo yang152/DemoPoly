@@ -54,8 +54,9 @@
 }
 
 - (CGRect)bannerView:(VLNBannerView *)bannerView didLoadBannerImageSize:(CGSize)size {
+    CGSize imageSize = size;
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    return CGRectMake(0, 88, screenSize.width, size.height / size.width * (screenSize.width));
+    return CGRectMake(0, 88, screenSize.width, imageSize.height / imageSize.width * (screenSize.width));
 }
 
 - (void)bannerViewDidLoad:(VLNBannerView *)bannerView {

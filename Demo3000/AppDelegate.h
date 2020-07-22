@@ -1,16 +1,17 @@
 //
 //  AppDelegate.h
-//  Demo3000
+//  VLionAdSDKDemo
 //
-//  Created by yangting on 2020/6/22.
-//  Copyright © 2020 杨挺. All rights reserved.
+//  Created by 张旭 on 2017/10/17.
+//  Copyright © 2017年 cnlive. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow * window;
+@property (strong, nonatomic) UIWindow *window;
+
 
 @end
 

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    VlionAdPageView *view = [[VlionAdPageView alloc] initWithFrame:CGRectMake(0, 88, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height-88) media:@"730" submedia:@"1009" currentVC:self];
+    VlionAdPageView *view = [[VlionAdPageView alloc] initWithFrame:self.view.bounds media:@"730" submedia:@"1009" currentVC:self];
     [self.view addSubview:view];
 }
 
